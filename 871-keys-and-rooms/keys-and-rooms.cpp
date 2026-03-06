@@ -1,6 +1,7 @@
 class Solution {
 public:
     bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        //BFS
         unordered_set<int> visited;
         queue<int> q;
         q.push(0);
