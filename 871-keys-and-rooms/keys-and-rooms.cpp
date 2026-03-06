@@ -11,6 +11,6 @@ void dfs(vector<vector<int>>& rooms, unordered_set<int>& visited, int room){
     bool canVisitAllRooms(vector<vector<int>>& rooms) {
         unordered_set<int> visited;
         dfs(rooms,visited,0);
-        return visited.size() == rooms.size() ? true:false;
+        return visited.size() == rooms.size();
     }
 };
