@@ -22,7 +22,6 @@ public:
 class Solution {
 public:
     vector<Node*> nodeRegister;
-
     void dfs(Node* actual, Node* clone){
         for(auto neighbor : actual->neighbors){
             if(not nodeRegister[neighbor->val]){
