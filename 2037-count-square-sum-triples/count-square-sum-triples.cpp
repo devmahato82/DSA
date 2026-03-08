@@ -8,8 +8,8 @@ public:
             square.insert(a);
         }
         for(int i=1;i<=n;i++){
-            for(int j=i+1;j<=n;j++){
-                if(square.find(i*i+j*j) != square.end()) count+=2;
+            for(int j=1;j<=n;j++){
+                if(square.find(i*i+j*j) != square.end()) count++;
             }
         }
         return count;
