@@ -5,6 +5,7 @@ public:
         int rows = grid.size();
         int cols = grid[0].size();
         queue<pair<int,int>> q;
+        vector<vector<int>> dir = {{-1,0},{1,0},{0,-1},{0,1}};
         int fo = 0;
         for(int i=0; i<rows;i++){
             for(int j=0;j<cols;j++){
@@ -27,25 +28,15 @@ public:
                 else break;
                 continue;
             }
-            if(currRow>0 && grid[currRow-1][currCol]==1) {
-                q.push({currRow-1,currCol});
-                grid[currRow-1][currCol] = 2;
+            for(int d=0;d<4;d++){
+                int nr = currRow + dir[d][0];
+                int nc = currCol + dir[d][1];
+                if(nr<0 or nc<0 or nr >=rows or nc >= cols) continue;
+                if(grid[nr][nc] !=1) continue;
                 fo--;
-            }
-            if(currRow<rows-1 && grid[currRow+1][currCol]==1) {
-                q.push({currRow+1,currCol});
-                grid[currRow+1][currCol] = 2;
-                fo--;
-            }
-            if(currCol > 0 && grid[currRow][currCol-1]==1) {
-                q.push({currRow,currCol-1});
-                grid[currRow][currCol-1] = 2;
-                fo--;
-            }
-            if(currCol < cols-1 && grid[currRow][currCol+1]==1) {
-                q.push({currRow,currCol+1});
-                grid[currRow][currCol+1] = 2;
-                fo--;
+                grid[nr][nc] = 2;
+                q.push({nr,nc});
+
             }
         }
         
