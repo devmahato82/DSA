@@ -25,7 +25,7 @@ public:
             if(currRow ==-1 && currCol == -1){
                 mins++;
                 if(q.size()>0) q.push({-1,-1});
-                else break;
+                
                 continue;
             }
             for(int d=0;d<4;d++){
