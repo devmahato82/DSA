@@ -7,7 +7,7 @@ public:
         for(int i=0;i<n1;i++){
             if(s==goal) return true;
             char A = s[0];
-            s.erase(0,1);
+            s= s.substr(1);
             s=s+A;
         }
         return false;
