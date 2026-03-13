@@ -1,18 +1,24 @@
 class Solution {
 public:
     int maxProductDifference(vector<int>& nums) {
-        priority_queue<int> mx;
-        priority_queue<int,vector<int>, greater<int>> mn;
-        for(int i=0;i<nums.size();i++){
-            mx.push(nums[i]);
-            mn.push(nums[i]);
+       int min1 = INT_MAX, min2 = INT_MAX;
+       int max1 = INT_MIN , max2 = INT_MIN;
+       for(int i=0;i<nums.size();i++){
+        if(nums[i]>max1){
+            max2 = max1;
+            max1 = nums[i];
         }
-        int a =mx.top();
-        mx.pop();
-        int b = mx.top();
-        int c = mn.top();
-        mn.pop();
-        int d = mn.top();
-        return (a*b)-(c*d);
+        else if(nums[i]>max2){
+            max2 = nums[i];
+        }
+        if(nums[i]<min1){
+            min2 = min1;
+            min1 = nums[i];
+        }
+        else if(nums[i]<min2){
+            min2 = nums[i];
+        }
+       }
+       return (max1*max2) - (min1*min2);
     }
 };
