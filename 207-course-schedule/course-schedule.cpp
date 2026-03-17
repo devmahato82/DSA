@@ -17,10 +17,10 @@ public:
                 visited.insert(i);
             }
         }
-        vector<int> ans;
+        int count=0;
         while(q.size() >0){
             int node = q.front();
-            ans.push_back(node);
+            count++;
             q.pop();
             for(auto neighbour: graph[node]){
                 if(not visited.count(neighbour)){
@@ -32,8 +32,7 @@ public:
                 }
             }
         }
-        if(ans.size()==numCourses) return true;
-        else return false;
+        return count == numCourses;
 
     }
 };
