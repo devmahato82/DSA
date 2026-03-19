@@ -33,6 +33,25 @@ public:
             x[px] = u;
             y[py] = u;
         }
+
+        vector<int> mark(n + 1, 0);
+        auto F = [&](int u, auto && self) -> void{
+            mark[u] = 1;
+            for(auto &v: graph[u]){
+                if(mark[v]) continue;
+                self(v, self);
+            }
+        };
+
+        int res = n;
+
+        for(int i = 1; i <= n; i++){
+            if(mark[i]) continue;
+            F(i, F);
+            res -= 1;
+        }
+        return res;
+
         int cc=0;
         unordered_set<int> vis;
         for(int i=1;i<=n;i++){
