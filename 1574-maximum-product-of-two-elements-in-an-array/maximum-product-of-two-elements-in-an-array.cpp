@@ -1,15 +1,16 @@
 class Solution {
 public:
     int maxProduct(vector<int>& nums) {
-        int n = nums.size();
-        priority_queue<int> pq;
-        for(int i=0;i<n;i++){
-            pq.push(nums[i]);
+        int first=0, second=0;
+        for(auto num: nums){
+            if(num>first){
+                second = first;
+                first = num;
+            }
+            else if(num>second) {
+                second = num;
+            }
         }
-        int a = pq.top();
-        pq.pop();
-        int b = pq.top();
-        pq.pop();
-        return (a-1)*(b-1);
+        return (first-1)*(second-1);
     }
 };
