@@ -20,10 +20,11 @@ public:
             ans+=st.top();
             st.pop();
         }
-        while(ans.size() >1 && ans.back() == '0'){
+        while(!ans.empty() && ans.back() == '0'){
             ans.pop_back();
         }
         reverse(ans.begin(), ans.end());
+        if(ans.empty()) return "0";
         return ans;
     }
 };
