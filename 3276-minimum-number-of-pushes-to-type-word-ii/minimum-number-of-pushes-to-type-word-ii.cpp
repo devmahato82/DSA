@@ -6,10 +6,7 @@ public:
         sort(freq.begin(),freq.end(), greater<int>());
         int count =0;
         for(int i=0; i<26; i++) {
-            if(i<8) count+= freq[i];
-            else if(i<16) count+= freq[i]*2;
-            else if(i<24) count+= freq[i]*3;
-            else count += freq[i]*4;
+            count += freq[i]*(i/8 +1);
         }
         return count;
     }
