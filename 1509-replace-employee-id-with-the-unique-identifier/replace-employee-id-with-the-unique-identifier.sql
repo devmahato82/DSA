@@ -1,5 +1,5 @@
 # Write your MySQL query statement below
 select unique_id , name
-from employees e
-left join employeeuni em
+from employees as e
+left join employeeuni as em
 on e.id = em.id
