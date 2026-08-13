@@ -3,13 +3,12 @@ class Solution {
         int n = s.length();
         int maxlen = Integer.MIN_VALUE;
         int l=0, r=0;
-        HashSet<Character> hs = new HashSet<>();
+        HashMap<Character, Integer> hm = new HashMap<>();
         while(r<n) {
-           while(hs.contains(s.charAt(r))) {
-             hs.remove(s.charAt(l));
-             l++;
+           if(hm.containsKey(s.charAt(r))) {
+             l = Math.max(l,hm.get(s.charAt(r))+1);
            }
-           hs.add(s.charAt(r));
+           hm.put(s.charAt(r), r);
            maxlen = Math.max(maxlen, r-l+1);
            r++;
         }
