@@ -6,7 +6,7 @@ class Solution {
         int l=0, r=0;
         while(r<n) {
             hm.put(fruits[r], hm.getOrDefault(fruits[r],0)+1);
-            while(hm.size()>2) {
+            if(hm.size()>2) {
                 if(hm.get(fruits[l]) >1){
                     hm.put(fruits[l],hm.get(fruits[l])-1);
                 }
