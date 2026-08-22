@@ -1,22 +1,23 @@
 class Solution {
   public:
-    int f(int ind, int w, vector<int> &wt, vector<int> &val, vector<vector<int>> &dp) {
-        if(ind == 0){
-            if(wt[0] <= w) return dp[ind][w] =  val[0];
-            return dp[ind][w] =  0;
+    int helper(int ind, int w, vector<int>& val, vector<int>& wt, vector<vector<int>> &dp) {
+        if(ind==0 ) {
+            if(w>=wt[ind]) return val[ind];
+            else return 0;
         }
+        if(w<0) return 0;
         if(dp[ind][w] != -1) return dp[ind][w];
-        int notTake = 0 + f(ind-1, w, wt, val,dp);
-        int take  = INT_MIN;
-        if(wt[ind] <= w){
-            take = val[ind] + f(ind-1, w- wt[ind], wt, val,dp);
+        int nottake = helper(ind-1,w,val,wt, dp);
+        int take = 0;
+        if(w>= wt[ind] ){
+            take = val[ind] + helper(ind-1, w-wt[ind], val, wt,dp);   
         }
-        return dp[ind][w] = max(notTake, take);
+        return dp[ind][w] = max(take, nottake);
     }
     int knapsack(int W, vector<int> &val, vector<int> &wt) {
         // code here
-        int n = wt.size();
-        vector<vector<int>> dp(n, vector<int> (W+1, -1));
-        return f(n-1,W, wt,val,dp);
+        int n = val.size();
+        vector<vector<int>> dp(n, vector<int>(W+1,-1));
+        return helper(n-1,W,val,wt,dp);
     }
 };
