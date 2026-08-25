@@ -1,45 +1,40 @@
 class Solution {
 public:
-    
     int orangesRotting(vector<vector<int>>& grid) {
-        int rows = grid.size();
-        int cols = grid[0].size();
-        queue<pair<int,int>> q;
-        vector<vector<int>> dir = {{-1,0},{1,0},{0,-1},{0,1}};
-        int fo = 0;
-        for(int i=0; i<rows;i++){
-            for(int j=0;j<cols;j++){
+        int m = grid.size();
+        int n = grid[0].size();
+        vector<vector<int>> vis(m, vector<int>(n,0));
+        queue<pair<pair<int,int>, int>>q;
+        int fo=0;
+        for(int i=0; i<m; i++) {
+            for(int j=0; j<n; j++) {
                 if(grid[i][j] == 1) fo++;
-                else if(grid[i][j] == 2) q.push({i,j}); //multi source bfs step
+                if(grid[i][j] == 2) {
+                    q.push({{i,j},0});
+                    vis[i][j] = 2;
+                }
             }
         }
-        // we have added all the source
-        q.push({-1,-1});
-        int mins =0;
-        while(q.size()>0){
-            
-            auto curr = q.front();
+        int tm = 0;
+        int drow[] = {-1,0,1,0};
+        int dcol[] = {0,1,0,-1};
+        while(!q.empty()) {
+            int r = q.front().first.first;
+            int c = q.front().first.second;
+            int t = q.front().second;
             q.pop();
-            int currRow = curr.first;
-            int currCol = curr.second;
-            if(currRow ==-1 && currCol == -1){
-                mins++;
-                if(q.size()>0) q.push({-1,-1});
-                
-                continue;
-            }
-            for(int d=0;d<4;d++){
-                int nr = currRow + dir[d][0];
-                int nc = currCol + dir[d][1];
-                if(nr<0 or nc<0 or nr >=rows or nc >= cols) continue;
-                if(grid[nr][nc] !=1) continue;
-                fo--;
-                grid[nr][nc] = 2;
-                q.push({nr,nc});
-
+            for(int i=0; i<4; i++) {
+                int nrow = r + drow[i];
+                int ncol = c + dcol[i];
+                int nt = t+1;
+                if(nrow >=0 && nrow<m && ncol>=0 && ncol<n && grid[nrow][ncol] == 1 && vis[nrow][ncol] !=2) {
+                    q.push({{nrow,ncol},nt});
+                    vis[nrow][ncol] = 2;
+                    fo--;
+                    tm = max(tm,nt);
+                }
             }
         }
-        
-        return (fo==0) ? mins-1 : -1;
+        return (fo == 0) ? tm : -1;
     }
 };
