@@ -14,16 +14,19 @@ public:
         int n = nums.size();
         // vector<int> dp(n+2,-1);
         // return find(0,n,nums,dp);
-        vector<int> dp(n+2);
-
-        dp[n] = dp[n+1] = 0;
+        
+        int first = 0;
+        int second = 0;
+        int ans;
 
         for(int i=n-1; i>=0; i--) {
-            int robhouse = nums[i] + dp[i+2];
-            int notrobhouse = dp[i+1];
-            dp[i] = max(robhouse, notrobhouse);
+            int robhouse = nums[i] + second;
+            int notrobhouse = first;
+            ans = max(robhouse, notrobhouse);
+            second = first;
+            first = ans;
         }
 
-        return dp[0];
+        return ans;
     }
 };
