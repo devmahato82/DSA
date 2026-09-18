@@ -12,7 +12,18 @@ public:
     }
     int rob(vector<int>& nums) {
         int n = nums.size();
-        vector<int> dp(n,-1);
-        return find(0,n,nums,dp);
+        // vector<int> dp(n+2,-1);
+        // return find(0,n,nums,dp);
+        vector<int> dp(n+2);
+
+        dp[n] = dp[n+1] = 0;
+
+        for(int i=n-1; i>=0; i--) {
+            int robhouse = nums[i] + dp[i+2];
+            int notrobhouse = dp[i+1];
+            dp[i] = max(robhouse, notrobhouse);
+        }
+
+        return dp[0];
     }
 };
