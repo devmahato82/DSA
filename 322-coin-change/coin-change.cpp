@@ -1,23 +1,22 @@
 class Solution {
 public:
-    int helper(int ind, int amount, vector<int>& coins, vector<vector<int>>& dp) {
-        if(ind ==0) {
-            if(amount % coins[0]==0) return amount/coins[0];
-            else return 1e9;
+    long long f(int ind, int amount,int n, vector<int>& coins, vector<vector<long long>>& dp) {
+        if(ind == n) {
+            if(amount%coins[ind] == 0) return amount/coins[ind];
+            else return INT_MAX;
         }
         if(dp[ind][amount] != -1) return dp[ind][amount];
-        int nottake = helper(ind-1, amount, coins, dp);
-        int take =1e9;
+        long long nottake = f(ind+1,amount,n,coins,dp);
+        long long take = INT_MAX;
         if(amount>= coins[ind]) {
-            take = 1+helper(ind, amount-coins[ind], coins, dp);
+            take = 1 + f(ind,amount-coins[ind], n, coins, dp);
         }
-        return dp[ind][amount] =  min(nottake, take);
-
+        return dp[ind][amount] = min(take, nottake);
     }
     int coinChange(vector<int>& coins, int amount) {
         int n = coins.size();
-        vector<vector<int>>dp(n, vector<int>(amount+1, -1));
-        int ans = helper(n-1,amount,coins, dp);
-        return ans==1e9 ?-1: ans;
+        vector<vector<long long>> dp(n+1, (vector<long long>(amount+1,-1)));
+        long long ans = f(0,amount,n-1,coins,dp);
+        return ans== INT_MAX ? -1: ans;
     }
 };
