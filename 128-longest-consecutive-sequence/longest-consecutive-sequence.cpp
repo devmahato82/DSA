@@ -17,7 +17,6 @@ public:
                 current++;
                 while(s.find(current) != s.end()) {
                     cnt++;
-                    s.erase(current);
                     current++;
                 }
             }
