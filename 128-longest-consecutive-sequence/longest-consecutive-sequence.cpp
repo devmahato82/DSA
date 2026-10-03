@@ -3,27 +3,27 @@ public:
     int longestConsecutive(vector<int>& nums) {
         int n = nums.size();
         unordered_set<int> s;
-        int mini = INT_MAX;
+    
         for(int i=0; i<n; i++) {
             s.insert(nums[i]);
         }
+
         int ans =0;
-        for(int x : nums) {
-            int cnt =1;
-            int current =x;
-            while(s.find(current-1) != s.end()) {
+        for(int x : s) {
+            int cnt =0;
+            int current = x;
+            if(s.find(current-1) == s.end()) {
                 cnt++;
-                s.erase(current-1);
-                current = current -1;
+                current++;
+                while(s.find(current) != s.end()) {
+                    cnt++;
+                    s.erase(current);
+                    current++;
+                }
             }
-            current = x;
-            while(s.find(current+1) != s.end()) {
-                cnt++;
-                s.erase(current+1);
-                current = current +1;
-            }
-            ans = max(cnt, ans);
+            ans = max(ans, cnt);
         }
+
         return ans;
 
     }
