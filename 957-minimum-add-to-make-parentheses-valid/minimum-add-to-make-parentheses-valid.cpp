@@ -1,15 +1,14 @@
 class Solution {
 public:
     int minAddToMakeValid(string s) {
-        stack<char> st;
+        int open =0 , ans =0;
         for(auto x : s) {
-            if(x=='(') st.push(x);
+            if(x=='(') open++;
             else {
-                if(st.size() > 0 && st.top() == '(') st.pop();
-                else st.push(x);
+                if(open >0) open--;
+                else ans++;
             }
         }
-        return st.size();
-
+        return open +ans;
     }
 };
