@@ -1,18 +1,20 @@
 class Solution {
 public:
+    int f(int ind, int trans, vector<int>& prices, vector<vector<int>>& dp) {
+        if(ind == prices.size() || trans ==4) return 0;
+        if(dp[ind][trans] != -1) return dp[ind][trans];
+
+        if(trans%2==0) return 
+        dp[ind][trans] = max(-prices[ind] + f(ind+1, trans+1, prices, dp), f(ind+1,trans, prices, dp));
+
+        else 
+        return 
+        dp[ind][trans] = max(prices[ind] + f(ind+1, trans+1 , prices, dp), f(ind+1, trans, prices, dp));
+
+    }
     int maxProfit(vector<int>& prices) {
         int n = prices.size();
-        vector<vector<vector<long long>>> dp(n+1, vector<vector<long long>>(2, vector<long long>(3,0)));
-        for(int ind = n-1; ind >= 0; ind--) {
-            for(int buy = 0; buy <2; buy++) {
-                for(int cap =1; cap <3; cap++) {
-                    if(buy) {
-                        dp[ind][buy][cap] = max(-prices[ind] + dp[ind+1][0][cap], dp[ind+1][1][cap]);
-                    }
-                    else dp[ind][buy][cap] = max(prices[ind] + dp[ind+1][1][cap-1], dp[ind+1][0][cap]);
-                }
-            }
-        }
-        return dp[0][1][2];
+        vector<vector<int>> dp(n+1, vector<int>(5,-1));
+        return f(0,0,prices,dp);
     }
 };
