@@ -14,15 +14,15 @@ public:
     }
     int maxProfit(vector<int>& prices) {
         int n = prices.size();
-       // vector<vector<int>> dp(n+1, vector<int>(2,0));
        
-        vector<int> ahead(2,0), curr(2,0);
+       int aheadbuy, aheadnotbuy, currbuy, currnotbuy;
+       aheadbuy = aheadnotbuy = 0;
         for(int ind =n-1; ind >=0; ind--) {
-            curr[1] = max(-prices[ind] + ahead[0], ahead[1]);
-            curr[
-                0] = max(prices[ind] + ahead[1], ahead[0]);
-            ahead = curr;
+            currbuy = max(-prices[ind] + aheadnotbuy, aheadbuy);
+            currnotbuy = max(prices[ind] + aheadbuy, aheadnotbuy);
+            aheadbuy = currbuy;
+            aheadnotbuy = currnotbuy;
         }
-        return ahead[1];
+        return aheadbuy;
     }
 };
