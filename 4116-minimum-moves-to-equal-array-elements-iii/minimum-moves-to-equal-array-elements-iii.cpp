@@ -4,7 +4,7 @@ public:
         int n = nums.size();
         int maxi = 0;
         for(int i=0; i<n; i++) {
-            maxi = max(maxi, nums[i]);
+           if(nums[i] > maxi) maxi = nums[i];
         }
         int ans = 0;
         for(int i=0; i<n; i++) {
